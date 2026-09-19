@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Для Полины 💗</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Georgia,"Times New Roman",serif;background:#160d16;color:#ffeef6}
+body{overflow:hidden}
+.screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:24px;
+background:
+radial-gradient(circle at 50% 45%,rgba(255,91,157,.20),transparent 34%),
+radial-gradient(circle at 20% 80%,rgba(161,50,105,.18),transparent 32%),
+linear-gradient(150deg,#100a12,#24101f 55%,#120a12)}
+.card{width:min(420px,100%);text-align:center;animation:fade .7s ease}
+h1{font-size:27px;margin:0 0 12px;font-weight:500}
+p{font-size:17px;line-height:1.55;margin:8px 0;color:#f8dce9}
+.small{font-size:14px;color:#cba9b9}
+button{width:100%;border:0;border-radius:16px;padding:14px 18px;margin-top:18px;
+font:inherit;font-size:17px;color:#fff;background:linear-gradient(90deg,#b93d78,#ff6d9e);
+box-shadow:0 8px 30px rgba(255,80,145,.25);cursor:pointer}
+button:active{transform:scale(.98)}
+input{width:100%;padding:14px;border-radius:15px;border:1px solid #73445e;
+background:rgba(255,255,255,.07);color:white;text-align:center;font:inherit;outline:none;margin-top:14px}
+.envelope{font-size:74px;filter:drop-shadow(0 8px 20px rgba(255,100,160,.25));margin-bottom:8px}
+.letter{background:#ffe8ef;color:#743d54;border-radius:8px;padding:24px 22px;text-align:left;
+box-shadow:0 20px 50px rgba(0,0,0,.35);max-height:72vh;overflow:auto}
+.letter h2{margin:0 0 12px;font-size:22px;font-weight:500}
+.letter p{color:#743d54;font-size:16px;line-height:1.65}
+.heart{position:fixed;pointer-events:none;animation:float 2.8s linear forwards;font-size:18px;opacity:.85}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes float{from{transform:translateY(0) scale(.7);opacity:0}15%{opacity:.9}to{transform:translateY(-95vh) translateX(40px) scale(1.2);opacity:0}}
+</style>
+</head>
+<body>
+<div class="screen" id="app"></div>
+<script>
+const app=document.getElementById('app');
+
+function render(content){
+  app.innerHTML='<div class="card">'+content+'</div>';
+}
+function hearts(){
+  for(let i=0;i<18;i++){
+    const h=document.createElement('div'); h.className='heart';
+    h.textContent=['♡','♥','✦'][Math.floor(Math.random()*3)];
+    h.style.left=Math.random()*100+'vw';
+    h.style.bottom='-20px';
+    h.style.animationDelay=(Math.random()*1.8)+'s';
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),3500);
+  }
+}
+function start(){
+  render(`
+    <div class="envelope">💌</div>
+    <h1>Полина, тебе письмо</h1>
+    <p>Я приготовил для тебя кое-что очень тёплое.</p>
+    <button onclick="unlock()">Открыть</button>
+  `);
+}
+function unlock(){
+  render(`
+    <h1>Небольшой секрет</h1>
+    <p>Введи слово, которое тебе подскажет сердце 💗</p>
+    <input id="word" placeholder="слово" autocomplete="off">
+    <button onclick="openLetter()">Открыть письмо</button>
+    <p class="small">Можно написать любое доброе слово.</p>
+  `);
+  document.getElementById('word').focus();
+}
+function openLetter(){
+  hearts();
+  render(`
+    <div class="letter">
+      <h2>Для Полины 💗</h2>
+      <p>Ты очень особенный человек.</p>
+      <p>Мне нравится твоя улыбка, твой характер и то, как рядом с тобой становится теплее.</p>
+      <p>Пусть у тебя будет как можно больше моментов, когда ты искренне улыбаешься, смеёшься и чувствуешь себя счастливой.</p>
+      <p>Никогда не забывай, что ты красивая, добрая и достойна самых приятных слов.</p>
+      <p>Спасибо тебе просто за то, что ты есть. ❤️</p>
+      <p style="text-align:center;margin-top:20px">С теплом, от человека, которому ты очень дорога.</p>
+    </div>
+    <button onclick="final()">Ещё кое-что</button>
+  `);
+}
+function final(){
+  hearts();
+  render(`
+    <div class="envelope">💗</div>
+    <h1>Полина</h1>
+    <p>Пусть сегодня у тебя будет повод улыбнуться.</p>
+    <p>Ты заслуживаешь много счастья, заботы и хороших людей рядом.</p>
+    <button onclick="start()">Открыть сначала</button>
+  `);
+}
+start();
+</script>
+</body>
+</html>
